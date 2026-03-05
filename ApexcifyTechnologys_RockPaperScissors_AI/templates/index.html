@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Showdown | AI RPS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-panel">
+        <header>
+            <h1>Neural Showdown</h1>
+            <div class="ai-status">
+                <div class="status-dot"></div>
+                <span>Predictive Engine: Online</span>
+            </div>
+        </header>
+
+        <div class="score-board">
+            <div class="score-box">
+                <span class="label">Player</span>
+                <span class="score" id="player-score">0</span>
+            </div>
+            <div class="score-divider"></div>
+            <div class="score-box">
+                <span class="label">AI</span>
+                <span class="score" id="ai-score">0</span>
+            </div>
+        </div>
+
+        <div class="arena" id="arena">
+            <div class="combatant">
+                <div class="hand" id="player-hand">✊</div>
+                <div class="combatant-name">You</div>
+            </div>
+            
+            <div class="clash-indicator" id="status-text">VS</div>
+
+            <div class="combatant">
+                <div class="hand ai-flip" id="ai-hand">✊</div>
+                <div class="combatant-name">AI</div>
+            </div>
+        </div>
+
+        <div class="logic-console">
+            <span class="console-prefix">> AI_THOUGHT_PROCESS:</span>
+            <span id="ai-logic" class="console-text">Awaiting input stream...</span>
+        </div>
+
+        <div class="controls">
+            <button class="play-btn" onclick="play('rock')">
+                <span class="icon">✊</span> Rock
+            </button>
+            <button class="play-btn" onclick="play('paper')">
+                <span class="icon">✋</span> Paper
+            </button>
+            <button class="play-btn" onclick="play('scissors')">
+                <span class="icon">✌️</span> Scissors
+            </button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
