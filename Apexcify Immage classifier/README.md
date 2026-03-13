@@ -67,7 +67,7 @@ Webcam (optional - demo mode available)
 Setup Instructions
 bash
 # Clone the repository
-git clone https://github.com/Muneebshah1192/emotion-classifier.git
+git clone (https://github.com/Muneebshah1192/ApexcifyTechnologys/tree/main/Apexcify%20Immage%20classifier)
 cd emotion-classifier
 
 # Create virtual environment
