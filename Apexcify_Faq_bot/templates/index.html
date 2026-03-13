@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syed Muneeb Haider - AI Specialist & Developer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="gradient-bg">
+        <div class="gradient-sphere"></div>
+        <div class="gradient-sphere-2"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Muneeb<span class="highlight">.AI</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#expertise">Expertise</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://github.com/Muneebshah1192" target="_blank" class="portfolio-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="badge-container">
+                    <span class="badge">
+                        <i class="fas fa-robot"></i> AI Specialist
+                    </span>
+                    <span class="badge">
+                        <i class="fas fa-map-pin"></i> Pakistan
+                    </span>
+                </div>
+                <h1 class="hero-title">
+                    Syed <span class="gradient-text">Muneeb Haider</span>
+                </h1>
+                <h2 class="hero-subtitle">
+                    Artificial Intelligence Developer & Mentor
+                </h2>
+                <p class="hero-description">
+                    Transforming data into intelligent solutions, building Pakistan's AI community through innovation and education.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-value">5+</span>
+                        <span class="stat-label">AI Projects</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">50+</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">Dedication</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="scrollToChat()">
+                        <i class="fas fa-comment"></i> Chat with AI Assistant
+                    </button>
+                    <a href="https://github.com/Muneebshah1192" target="_blank" class="btn-secondary">
+                        <i class="fab fa-github"></i> View GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <i class="fas fa-user-circle"></i>
+                    <h3>{{ internee.name }}</h3>
+                    <p>{{ internee.internship }}</p>
+                    <div class="profile-links">
+                        <a href="mailto:{{ internee.email }}"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/Muneebshah1192" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chatbot Section -->
+        <section class="chat-section" id="chat">
+            <div class="section-header">
+                <h2>AI <span class="gradient-text">Assistant</span></h2>
+                <p>Ask me anything about Syed Muneeb Haider, AI, or internship opportunities</p>
+            </div>
+            
+            <div class="chat-container">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-header-left">
+                        <div class="chat-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="chat-info">
+                            <h3>Muneeb's AI Assistant</h3>
+                            <p><i class="fas fa-circle"></i> Online - Ready to help</p>
+                        </div>
+                    </div>
+                    <div class="chat-header-right">
+                        <button class="icon-btn" id="clearChat" title="Clear chat">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button class="icon-btn" id="toggleSound" title="Toggle sound">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <div class="message-content">
+                            <i class="fas fa-robot"></i>
+                            <div class="message-text">
+                                <p>Hello! I'm Syed Muneeb Haider's AI assistant. I can help you with:</p>
+                                <ul>
+                                    <li>Information about Muneeb's background and expertise</li>
+                                    <li>Details about the AI internship program</li>
+                                    <li>Projects and technologies used</li>
+                                    <li>How to apply and contact information</li>
+                                </ul>
+                                <p>Try typing: <strong>"about"</strong>, <strong>"ai"</strong>, or <strong>"internship"</strong></p>
+                                <span class="timestamp">Just now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Commands -->
+                <div class="quick-commands">
+                    <button class="command-chip" onclick="quickCommand('about')">
+                        <i class="fas fa-user"></i> About
+                    </button>
+                    <button class="command-chip" onclick="quickCommand('ai')">
+                        <i class="fas fa-brain"></i> AI
+                    </button>
+                    <button class="command-chip" onclick="quickCommand('internship')">
+                        <i class="fas fa-graduation-cap"></i> Internship
+                    </button>
+                    <button class="command-chip" onclick="quickCommand('projects')">
+                        <i class="fas fa-code"></i> Projects
+                    </button>
+                    <button class="command-chip" onclick="quickCommand('skills')">
+                        <i class="fas fa-tools"></i> Skills
+                    </button>
+                    <button class="command-chip" onclick="quickCommand('contact')">
+                        <i class="fas fa-envelope"></i> Contact
+                    </button>
+                </div>
+
+                <!-- Suggested Questions -->
+                <div class="suggestions" id="suggestedQuestions">
+                    <p class="suggestions-title">Suggested questions:</p>
+                    <div class="suggestion-chips" id="suggestionChips">
+                        <button class="suggestion-chip" data-question="Who is Syed Muneeb Haider?">
+                            Who is Syed Muneeb Haider?
+                        </button>
+                        <button class="suggestion-chip" data-question="Tell me about the AI internship">
+                            Tell me about the AI internship
+                        </button>
+                        <button class="suggestion-chip" data-question="What projects have you worked on?">
+                            What projects have you worked on?
+                        </button>
+                        <button class="suggestion-chip" data-question="How can I contact you?">
+                            How can I contact you?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input-area">
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="userInput" 
+                               placeholder="Type your question here... (try 'help' for commands)" 
+                               autocomplete="off">
+                        <button class="send-btn" id="sendMessage">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="input-hint">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Commands: about, ai, internship, projects, skills, contact, apply, help</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="section-header">
+                <h2>About <span class="gradient-text">Muneeb</span></h2>
+                <p>AI enthusiast from Pakistan, building intelligent solutions</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Specialist</h3>
+                    <p>Expert in Machine Learning, Deep Learning, and Neural Networks</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>5+ Projects</h3>
+                    <p>Completed AI projects including chatbots, classifiers, and predictors</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-users"></i>
+                    <h3>50+ Students</h3>
+                    <p>Mentored aspiring AI developers in Pakistan</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Community Builder</h3>
+                    <p>Building Pakistan's AI community, one model at a time</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section -->
+        <section class="expertise-section" id="expertise">
+            <div class="section-header">
+                <h2>Technical <span class="gradient-text">Expertise</span></h2>
+                <p>Technologies and tools I work with</p>
+            </div>
+            
+            <div class="expertise-grid">
+                <div class="expertise-category">
+                    <h3><i class="fas fa-code"></i> Programming</h3>
+                    <div class="skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+                
+                <div class="expertise-category">
+                    <h3><i class="fas fa-brain"></i> AI/ML Frameworks</h3>
+                    <div class="skills">
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Keras</span>
+                        <span class="skill-tag">OpenCV</span>
+                    </div>
+                </div>
+                
+                <div class="expertise-category">
+                    <h3><i class="fas fa-chart-bar"></i> Data Science</h3>
+                    <div class="skills">
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Jupyter</span>
+                    </div>
+                </div>
+                
+                <div class="expertise-category">
+                    <h3><i class="fas fa-tools"></i> Development Tools</h3>
+                    <div class="skills">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">AWS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section" id="projects">
+            <div class="section-header">
+                <h2>Featured <span class="gradient-text">Projects</span></h2>
+                <p>Real-world AI applications I've built</p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3>Intelligent Chatbot</h3>
+                    <p>NLP-powered conversational AI with context-aware responses</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>TensorFlow</span>
+                        <span>NLP</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Image Classifier</h3>
+                    <p>CNN-based image recognition with 90%+ accuracy</p>
+                    <div class="project-tags">
+                        <span>PyTorch</span>
+                        <span>CNN</span>
+                        <span>OpenCV</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Sentiment Analyzer</h3>
+                    <p>Real-time social media sentiment analysis tool</p>
+                    <div class="project-tags">
+                        <span>NLP</span>
+                        <span>Scikit-learn</span>
+                        <span>Flask</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Predictive Model</h3>
+                    <p>Sales forecasting system with 95% accuracy</p>
+                    <div class="project-tags">
+                        <span>Time Series</span>
+                        <span>XGBoost</span>
+                        <span>Pandas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Internship Section -->
+        <section class="internship-section">
+            <div class="internship-card">
+                <div class="internship-content">
+                    <h2>AI Internship Program</h2>
+                    <p>Learn artificial intelligence from scratch and build real-world projects with mentorship</p>
+                    
+                    <div class="internship-features">
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <span>6 months duration</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Hands-on projects</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-user-tie"></i>
+                            <span>1-on-1 mentorship</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certificate included</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="showApplyModal()">
+                        <i class="fas fa-paper-plane"></i> Apply Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <h2>Get In <span class="gradient-text">Touch</span></h2>
+                <p>Have questions? Reach out anytime</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:{{ internee.email }}">{{ internee.email }}</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <div>
+                            <h4>GitHub</h4>
+                            <a href="https://github.com/Muneebshah1192" target="_blank">github.com/Muneebshah1192</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-pin"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>{{ internee.country }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://github.com/Muneebshah1192" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-medium"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Apply Modal -->
+    <div class="modal" id="applyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Apply for AI Internship</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="applyForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" required placeholder="Lahore, Karachi, Islamabad...">
+                    </div>
+                    <div class="form-group">
+                        <label for="internshipSelect">Program</label>
+                        <select id="internshipSelect" required>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Data Science">Data Science</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Application
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Message sent!</span>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="typing-indicator" id="typingIndicator">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
