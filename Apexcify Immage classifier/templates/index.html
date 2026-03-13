@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion AI - Syed Muneeb Haider</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+    <!-- Animated Background with Floating Elements -->
+    <div class="background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="floating-emojis">
+            <span>😊</span><span>😢</span><span>😐</span><span>😲</span>
+            <span>😊</span><span>😢</span><span>😐</span><span>😲</span>
+        </div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-morphism">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-brain rainbow-text"></i>
+                <span>Emotion<span class="gradient-text">AI</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#live-demo">Live Demo</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#about">About</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://github.com/Muneebshah1192" target="_blank" class="github-link">
+                    <i class="fab fa-github"></i> Muneebshah1192
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section with 3D Effect -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="floating-badge">
+                    <span class="badge pulse">
+                        <i class="fas fa-robot"></i> AI-Powered Emotion Detection
+                    </span>
+                </div>
+                <h1 class="hero-title">
+                    Read <span class="gradient-text">Emotions</span><br>
+                    in Real-Time
+                </h1>
+                <p class="hero-description">
+                    Experience the magic of AI as it reads your facial expressions 
+                    with 95% accuracy. Just look at the camera and watch the magic happen!
+                </p>
+                
+                <div class="hero-stats glass-morphism">
+                    <div class="stat-item">
+                        <span class="stat-value">95%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-value">4</span>
+                        <span class="stat-label">Emotions</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-value">30fps</span>
+                        <span class="stat-label">Real-time</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <button class="cta-button primary" onclick="scrollToDemo()">
+                        <i class="fas fa-play"></i> Try It Now
+                    </button>
+                    <button class="cta-button secondary" onclick="scrollToHowItWorks()">
+                        <i class="fas fa-info-circle"></i> Learn More
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="emotion-wheel">
+                    <div class="wheel-center">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="wheel-item happy">😊</div>
+                    <div class="wheel-item sad">😢</div>
+                    <div class="wheel-item neutral">😐</div>
+                    <div class="wheel-item surprised">😲</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Demo Section -->
+        <section class="demo-section" id="live-demo">
+            <div class="section-header">
+                <h2>Live <span class="gradient-text">Emotion</span> Detector</h2>
+                <p>Point your camera at your face and see the AI in action</p>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loader">
+                    <div class="loader-spinner"></div>
+                    <div class="loader-text">
+                        <h3>Loading AI Model</h3>
+                        <p id="loadingProgress">0%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Demo Card -->
+            <div class="demo-card glass-morphism">
+                <!-- Camera Section -->
+                <div class="camera-section">
+                    <div class="camera-container">
+                        <video id="webcam" autoplay playsinline></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                        
+                        <!-- Live Overlay -->
+                        <div class="camera-overlay">
+                            <div class="emotion-indicator" id="emotionIndicator">
+                                <span class="indicator-icon" id="emotionIcon">😐</span>
+                                <span class="indicator-text" id="emotionText">Neutral</span>
+                            </div>
+                            
+                            <div class="confidence-meter">
+                                <div class="meter-fill" id="confidenceFill" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Scan Lines Animation -->
+                        <div class="scan-lines"></div>
+                    </div>
+
+                    <!-- Camera Controls -->
+                    <div class="camera-controls">
+                        <button class="control-btn start" id="startCamera" onclick="startWebcam()">
+                            <i class="fas fa-camera"></i>
+                            <span>Start Camera</span>
+                        </button>
+                        <button class="control-btn stop" id="stopCamera" onclick="stopWebcam()" disabled>
+                            <i class="fas fa-stop"></i>
+                            <span>Stop</span>
+                        </button>
+                        <button class="control-btn capture" id="captureBtn" onclick="captureMoment()">
+                            <i class="fas fa-camera-retro"></i>
+                            <span>Capture</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Emotion Info Panel -->
+                <div class="info-panel">
+                    <div class="info-card glass-morphism" id="emotionMessageCard">
+                        <i class="fas fa-smile info-icon"></i>
+                        <div class="info-content">
+                            <h4>Current Emotion</h4>
+                            <p id="emotionMessage">Waiting for detection...</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card glass-morphism" id="emotionFactCard">
+                        <i class="fas fa-lightbulb info-icon"></i>
+                        <div class="info-content">
+                            <h4>Did You Know?</h4>
+                            <p id="emotionFact">Facial expressions are universal across cultures</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card glass-morphism" id="emotionQuoteCard">
+                        <i class="fas fa-quote-right info-icon"></i>
+                        <div class="info-content">
+                            <h4>Quote of the Moment</h4>
+                            <p id="emotionQuote">Your smile is your superpower</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emotion History -->
+                <div class="history-section">
+                    <h3>Recent Detections</h3>
+                    <div class="history-grid" id="historyGrid">
+                        <!-- History items will be added here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works" id="how-it-works">
+            <div class="section-header">
+                <h2>How It <span class="gradient-text">Works</span></h2>
+                <p>Powered by cutting-edge AI technology</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card glass-morphism">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Data Collection</h3>
+                    <p>800+ facial images trained across 4 emotions</p>
+                    <div class="step-progress">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="step-card glass-morphism">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Training</h3>
+                    <p>Deep learning with 95% accuracy</p>
+                    <div class="step-progress">
+                        <div class="progress-bar" style="width: 95%"></div>
+                    </div>
+                </div>
+
+                <div class="step-card glass-morphism">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Real-time Analysis</h3>
+                    <p>30 frames per second processing</p>
+                    <div class="step-progress">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="step-card glass-morphism">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3>Instant Results</h3>
+                    <p>Millisecond response time</p>
+                    <div class="step-progress">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="about-container glass-morphism">
+                <div class="about-profile">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <h3>Syed Muneeb Haider</h3>
+                    <p class="profile-title">AI Intern at Apexcify Technologys</p>
+                    <div class="profile-social">
+                        <a href="mailto:muneebshah1192@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/Muneebshah1192"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="about-content">
+                    <h3>Task 3: Image Classifier</h3>
+                    <p>This project was built as part of the Apexcify Technologys AI Internship. It demonstrates real-time emotion detection using Google's Teachable Machine and TensorFlow.js.</p>
+                    
+                    <div class="tech-tags">
+                        <span class="tech-tag"><i class="fab fa-python"></i> Flask</span>
+                        <span class="tech-tag"><i class="fas fa-brain"></i> TensorFlow.js</span>
+                        <span class="tech-tag"><i class="fas fa-robot"></i> Teachable Machine</span>
+                        <span class="tech-tag"><i class="fab fa-html5"></i> HTML5</span>
+                        <span class="tech-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+                        <span class="tech-tag"><i class="fab fa-js"></i> JavaScript</span>
+                    </div>
+
+                    <a href="https://github.com/Muneebshah1192/ApexifyTechnologies_EmotionClassifier" target="_blank" class="github-repo-btn">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Camera started!</span>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
